@@ -33,8 +33,8 @@ class AuditLogsResource extends Resource
                     'update_document' => 'Memperbarui Dokumen',
                 ])
                 ->required(),
-                Forms\Components\Select::make('document_id')
-                ->relationship('document', 'name')
+                Forms\Components\Select::make('documents_id')
+                ->relationship('documents', 'title')
                 ->required(),
             ]);
     }
@@ -44,8 +44,8 @@ class AuditLogsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('action.name'),
-                Tables\Columns\TextColumn::make('document.title'),
+                Tables\Columns\TextColumn::make('Action.name'),
+                Tables\Columns\TextColumn::make('documents.title'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('update_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])

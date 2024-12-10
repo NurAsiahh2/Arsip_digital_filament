@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title'); // Kolom title
             $table->string('description')->nullable(); // Kolom description
             $table->string('file_path'); // Kolom file_path
-            $table->unsignedBigInteger('categories_id')->nullable()->constrained()->onDelete('cascade'); // Relasi dengan category
+            $table->foreignId('categories_id')->nullable()->constrained()->onDelete('cascade'); // Relasi dengan category
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });

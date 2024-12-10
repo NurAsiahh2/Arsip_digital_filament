@@ -12,7 +12,7 @@ class tags extends Model
         'name', 
     ];
      
-    public function documents(){
+    public function document(){
         return $this->belongsToMany(Document::class, 'document_tag');
     }
 }

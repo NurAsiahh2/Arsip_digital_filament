@@ -4,12 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Categories;
-use App\Models\Tags;
-class Document extends Model
-{
-    use HasFactory; 
 
+class documents extends Model
+{
+    use HasFactory;
     protected $fillable = [
         'title', 
         'description', 
@@ -24,11 +22,11 @@ class Document extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function category(){
-        return $this->belongsTo(Category::class, 'categories_id');
+    public function categories(){
+        return $this->belongsTo(Categories::class, 'categories_id');
     }
 
     public function tags(){
-        return $this->belongsToMany(Tag::class, 'document_tag');
+        return $this->belongsToMany(Tags::class, 'document_tag');
     }
 }

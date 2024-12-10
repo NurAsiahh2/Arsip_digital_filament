@@ -2,21 +2,21 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\DocumentResource\Pages;
-use App\Filament\Resources\DocumentResource\RelationManagers;
-use App\Models\Document;
+use App\Filament\Resources\DocumentsResource\Pages;
+use App\Filament\Resources\DocumentsResource\RelationManagers;
+use App\Models\Documents;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\MultiSelect;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class DocumentResource extends Resource
+class DocumentsResource extends Resource
 {
-    protected static ?string $model = Document::class;
+    protected static ?string $model = Documents::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -33,8 +33,10 @@ class DocumentResource extends Resource
                 Forms\Components\Select::make('user_id')
                 ->relationship('user', 'name')
                 ->required(),
-                Forms\Components\MultiSelect::make('tag')
-                ->relationship('tags', "name"),
+                Forms\Components\MultiSelect::make('tags')
+                ->relationship('tags', 'name') // Hubungkan ke model Tag
+                ->label('tags')
+                ->required(),
             ]);
     }
 
@@ -48,6 +50,8 @@ class DocumentResource extends Resource
                 Tables\Columns\TextColumn::make('file_path'),
                 Tables\Columns\TextColumn::make('Categories.name'),
                 Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('tags.name')
+                ->label('tags'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('update_at')->dateTime()->sortable()->toggleable(isToggledHiddenByDefault: true),
             ])
@@ -75,8 +79,8 @@ class DocumentResource extends Resource
     {
         return [
             'index' => Pages\ListDocuments::route('/'),
-            'create' => Pages\CreateDocument::route('/create'),
-            'edit' => Pages\EditDocument::route('/{record}/edit'),
+            'create' => Pages\CreateDocuments::route('/create'),
+            'edit' => Pages\EditDocuments::route('/{record}/edit'),
         ];
     }
 }

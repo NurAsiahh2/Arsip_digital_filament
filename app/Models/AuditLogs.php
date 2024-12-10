@@ -19,7 +19,7 @@ class AuditLogs extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function document(){
-        return $this->belongsTo(Document::class);
+    public function documents(){
+        return $this->belongsTo(Documents::class, 'document_id');
     }
 }
